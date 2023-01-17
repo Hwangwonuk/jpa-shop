@@ -19,9 +19,17 @@ repositories {
 }
 
 dependencies {
+	// springboot가 기본적으로 설정한 라이브러리들은 버전이 스프링부트 버전과 맞는 버전을 매핑해주지만 그렇지 않은 경우 버전을 명시해주어야 한다.
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// html 파일을 컴파일만 해주면 서버 재시작 없이 View 파일 변경이 가능하다.
+	implementation 'org.springframework.boot:spring-boot-devtools'
+
+	// org.hibernate.type: trace 옵션으로 하단에 파라미터 로그를 찍을 수 있지만 해당 라이브러리로 사용하면 ? ? 에 파라미터 바인딩되어 로그에 출력된다..
+	// 이러한 라이브러리는 개발환경에서 사용해도 되지만 운영 단계에서는 반드시 성능테스트를 거친 후 사용해야 한다.
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
