@@ -7,12 +7,12 @@
  * Proprietary and confidential
  * Written by infra Team <wonuk_hwang@bigin.io>, 2023/01/17
  */
-package jpabook.jpashop;
+package jpabook.jpashop.domain.item;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jpabook.jpashop.domain.Member;
-import org.springframework.stereotype.Repository;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * create on 2023/01/17. create by IntelliJ IDEA.
@@ -25,18 +25,13 @@ import org.springframework.stereotype.Repository;
  * @see
  * @since (ex : 5 + 5)
  */
-@Repository
-public class MemberRepository {
+@Entity
+@DiscriminatorValue("M")
+@Getter
+@Setter
+public class Movie extends Item {
 
-  @PersistenceContext
-  private EntityManager em;
+  private String director;
 
-  public Long save(Member member) {
-    em.persist(member);
-    return member.getId();
-  }
-
-  public Member find(Long id) {
-    return em.find(Member.class, id);
-  }
+  private String actor;
 }

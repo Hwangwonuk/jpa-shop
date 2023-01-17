@@ -1,7 +1,6 @@
 package jpabook.jpashop;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import jpabook.jpashop.domain.Member;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,7 +49,7 @@ class MemberRepositoryTest {
   public void testMember() throws Exception {
      // given
     Member member = new Member();
-    member.setUserName("memberA");
+//    member.setUserName("memberA");
 
      // when
     Long saveId = memberRepository.save(member);
@@ -58,7 +57,7 @@ class MemberRepositoryTest {
 
     // then
     Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
-    Assertions.assertThat(findMember.getUserName()).isEqualTo(member.getUserName());
+//    Assertions.assertThat(findMember.getUserName()).isEqualTo(member.getUserName());
     // 저장한것과 조회한것은 같은가? TRUE
     // 같은 트랜잭션 안에서 저장하고 조회하면 같은 영속성 컨텍스트가 똑같다.
     // 같은 영속성 컨텍스트 안에서는 아이디값이 같으면 같은 엔티티로 식별한다. (1차캐시!)

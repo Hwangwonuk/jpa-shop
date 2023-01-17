@@ -7,13 +7,7 @@
  * Proprietary and confidential
  * Written by infra Team <wonuk_hwang@bigin.io>, 2023/01/17
  */
-package jpabook.jpashop;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+package jpabook.jpashop.domain;
 
 /**
  * create on 2023/01/17. create by IntelliJ IDEA.
@@ -26,13 +20,6 @@ import lombok.Setter;
  * @see
  * @since (ex : 5 + 5)
  */
-@Entity
-@Getter
-@Setter
-public class Member {
+public enum DeliveryStatus {
 
-  @Id
-  @GeneratedValue
-  private Long id;
-  private String userName;
 }

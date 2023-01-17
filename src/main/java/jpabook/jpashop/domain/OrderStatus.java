@@ -7,12 +7,7 @@
  * Proprietary and confidential
  * Written by infra Team <wonuk_hwang@bigin.io>, 2023/01/17
  */
-package jpabook.jpashop;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jpabook.jpashop.domain.Member;
-import org.springframework.stereotype.Repository;
+package jpabook.jpashop.domain;
 
 /**
  * create on 2023/01/17. create by IntelliJ IDEA.
@@ -25,18 +20,6 @@ import org.springframework.stereotype.Repository;
  * @see
  * @since (ex : 5 + 5)
  */
-@Repository
-public class MemberRepository {
+public enum OrderStatus {
 
-  @PersistenceContext
-  private EntityManager em;
-
-  public Long save(Member member) {
-    em.persist(member);
-    return member.getId();
-  }
-
-  public Member find(Long id) {
-    return em.find(Member.class, id);
-  }
 }
