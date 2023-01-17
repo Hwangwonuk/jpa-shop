@@ -25,7 +25,9 @@ import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -42,6 +44,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+// 직접 생성하지 않고 생성 메서드를 사용해야 생성되도록 제약하기 위함.
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 // ORDER는 테이블명으로 사용할 수 없다.
 @Table(name = "orders")
 public class Order {
@@ -84,5 +88,45 @@ public class Order {
   public void setDelivery(Delivery delivery) {
     this.delivery = delivery;
     delivery.setOrder(this);
+  }
+
+  // == 생성 메서드 ==
+  public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+    Order order = new Order();
+    order.setMember(member);
+    order.setDelivery(delivery);
+    for (OrderItem orderItem : orderItems) {
+      order.addOrderItem(orderItem);
+    }
+    order.setStatus(OrderStatus.ORDER);
+    order.setOrderDate(LocalDateTime.now());
+    return order;
+  }
+
+  // == 비지니스 로직 ==
+
+  /**
+   * 주문 취소
+   */
+  public void cancel() {
+    if (delivery.getStatus() == DeliveryStatus.COMP) {
+      throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
+    }
+
+    this.setStatus(OrderStatus.CANCEL);
+    for (OrderItem orderItem : this.orderItems) {
+      orderItem.cancel(); // 재고를 원상복구 시킨다.
+    }
+  }
+
+  // == 조회 로직 ==
+  /**
+   * 전체 주문 가격 조회
+   * 주문수량 * 주문 금액을 총 금액으로 계산하여 반환한다.
+   */
+  public int getTotalPrice() {
+    return orderItems.stream()
+        .mapToInt(OrderItem::getTotalPrice)
+        .sum();
   }
 }

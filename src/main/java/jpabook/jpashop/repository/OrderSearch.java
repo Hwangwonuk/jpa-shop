@@ -7,7 +7,11 @@
  * Proprietary and confidential
  * Written by infra Team <wonuk_hwang@bigin.io>, 2023/01/17
  */
-package jpabook.jpashop.domain;
+package jpabook.jpashop.repository;
+
+import jpabook.jpashop.domain.OrderStatus;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * create on 2023/01/17. create by IntelliJ IDEA.
@@ -20,6 +24,11 @@ package jpabook.jpashop.domain;
  * @see
  * @since (ex : 5 + 5)
  */
-public enum DeliveryStatus {
-  READY, COMP
+@Getter
+@Setter
+public class OrderSearch {
+
+  private String memberName; // 회원 이름
+  private OrderStatus orderStatus; // 주문 상태 ORDER, CANCEL
+
 }

@@ -21,5 +21,5 @@ package jpabook.jpashop.domain;
  * @since (ex : 5 + 5)
  */
 public enum OrderStatus {
-
+  ORDER, CANCEL
 }
