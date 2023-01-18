@@ -104,7 +104,7 @@ public class MemberApiController {
   /**
    * 조회 V2: 응답 값으로 엔티티가 아닌 별도의 DTO를 반환한다.
    * 엔티티가 변해도 API 스펙이 변경되지 않는다.
-   * 추가로 Result 클래스로 컬렉션을 감싸서 향후 필요한 필드를 추가할 수 있다
+   * 추가로 Result 클래스로 컬렉션을 감싸서 향후 필요한 필드를 추가할 수 있다 (유연성)
    */
   @GetMapping("/api/v2/members")
   public Result membersV2() {
@@ -121,6 +121,7 @@ public class MemberApiController {
   @Data
   @AllArgsConstructor
   static class Result<T> {
+//    private int count; Result 클래스로 감싼다면 필드 추가가 자유롭게 가능하다.
     private T data;
   }
 
