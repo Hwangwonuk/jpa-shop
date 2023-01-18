@@ -9,6 +9,7 @@
  */
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -46,6 +47,8 @@ public class Member {
   @Embedded
   private Address address;
 
+  // Json으로 반환하지 않는 경우 사용하지만 API마다 각각 다르게 적용되기 때문에 DTO를 사용해야한다.
+  @JsonIgnore
   // mappedBy가 설정된곳은 조회만 가능하다 연관관계의 주인은 Order
   @OneToMany(mappedBy = "member")
   private List<Order> orders = new ArrayList<>();
