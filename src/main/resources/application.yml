@@ -14,6 +14,8 @@ spring:
       hibernate:
         # show_sql: true
         format_sql: true
+        # 조회 batch size 조정(in query 개수 조정),  Query 한방에 in 쿼리로 조회 한다.
+        default_batch_fetch_size: 100
 
 # 모든 로그 출력은 가급적 로거를 통해 남겨야 한다.
 # show_sql : 옵션은 System.out 에 하이버네이트 실행 SQL을 남긴다.

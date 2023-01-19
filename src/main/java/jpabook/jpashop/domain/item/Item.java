@@ -23,6 +23,7 @@ import jpabook.jpashop.domain.Category;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 /**
  * create on 2023/01/17. create by IntelliJ IDEA.
@@ -35,6 +36,7 @@ import lombok.Setter;
  * @see
  * @since (ex : 5 + 5)
  */
+@BatchSize(size = 100) // ToOne 관계에서는 클래스 레벨에 적용
 @Entity
 // 싱글 테이블 전략 사용
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

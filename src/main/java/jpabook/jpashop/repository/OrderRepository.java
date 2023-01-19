@@ -138,6 +138,15 @@ public class OrderRepository {
         .getResultList();
   }
 
+  /**
+   * orderItems를 조회하는 시점에서 데이터가 뻥튀기된다. Order는 1개 OrderItems는 2개
+   * Order의 중복이 발생 -> 참조값마저 똑같다.
+   *
+   * 중복을 제거하기 위해 distinct 사용!
+   * db의 distinct(한줄 전체가 같아야 중복제거) 와 + JPA에서 자체적으로 Order Entity 가 같은 아이디값이면 하나를 버린다.
+   *
+   * 하지만 최대 단점으로 페이징이 불가능하다!
+   */
   public List<Order> findAllWithItem() {
     return em.createQuery(
             "select distinct o from Order o" +
@@ -145,9 +154,14 @@ public class OrderRepository {
                 " join fetch o.delivery d" +
                 " join fetch o.orderItems oi" +
                 " join fetch oi.item i", Order.class)
+//        .setFirstResult(1) 페이징 불가! 실행된 쿼리에 limit, offset이 들어가지 않는다.
+//        .setMaxResults(100) 페이징 불가! applying in memory warn 발생! 메모리에서 페이징처리 하기때문에 터질 수 있다.
         .getResultList();
   }
 
+  /**
+   * xToOne 관계에서는 페이징 처리하여도 상관없다.
+   */
   public List<Order> findAllWithMemberDelivery(int offset, int limit) {
     return em.createQuery(
             "select o from Order o" +

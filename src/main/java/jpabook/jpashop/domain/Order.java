@@ -29,6 +29,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 /**
  * create on 2023/01/17. create by IntelliJ IDEA.
@@ -59,6 +60,8 @@ public class Order {
   @JoinColumn(name = "member_id")
   private Member member;
 
+  // 컬렉션의 경우 global 설정 yml 말고 @Batchsize 로 개별적으로 적용이 가능하다.
+  @BatchSize(size = 1000)
   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
   private List<OrderItem> orderItems = new ArrayList<>();
 
